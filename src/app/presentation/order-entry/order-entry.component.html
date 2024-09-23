@@ -1,0 +1,62 @@
+<div class="container mx-auto">
+  <h1 class="text-2xl font-bold mb-4">Pizza Order Entry</h1>
+
+  <table class="min-w-full bg-white border border-gray-300">
+    <thead>
+      <tr class="bg-gray-200">
+        <th class="border border-gray-300 px-4 py-2">Toppings</th>
+        <th class="border border-gray-300 px-4 py-2">Small</th>
+        <th class="border border-gray-300 px-4 py-2">Medium</th>
+        <th class="border border-gray-300 px-4 py-2">Large</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let topping of availableToppings">
+        <td class="border border-gray-300 px-4 py-2">{{ topping }}</td>
+        <td class="border border-gray-300 px-4 py-2">
+          <input type="checkbox" (change)="onToppingChange(topping, 'Small', $event)" />
+        </td>
+        <td class="border border-gray-300 px-4 py-2">
+          <input type="checkbox" (change)="onToppingChange(topping, 'Medium', $event)" />
+        </td>
+        <td class="border border-gray-300 px-4 py-2">
+          <input type="checkbox" (change)="onToppingChange(topping, 'Large', $event)" />
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="border border-gray-300 px-4 py-2 font-bold">Offer</td>
+        <td class="border border-gray-300 px-4 py-2">
+          <input type="checkbox" *ngIf="isEligibleForOffer('Small')"  checked />
+        </td>
+        <td class="border border-gray-300 px-4 py-2">
+          <input  *ngIf="isEligibleForOffer('Medium')" 
+          type="checkbox" checked />
+        </td>
+        <td class="border border-gray-300 px-4 py-2">
+          <input  *ngIf="isEligibleForOffer('Large')" 
+          type="checkbox" checked />
+        </td>
+      </tr>
+      <tr>
+        <td class="border border-gray-300 px-4 py-2 font-bold">Price</td>
+        <td class="border border-gray-300 px-4 py-2">
+          {{ getPizzaPrice('Small')  }}
+        </td>
+        <td class="border border-gray-300 px-4 py-2">
+          {{ getPizzaPrice('Medium')  }}
+        </td>
+        <td class="border border-gray-300 px-4 py-2">
+          {{ getPizzaPrice('Large')  }}
+        </td>
+      </tr>
+      <tr>
+        <td class="border border-gray-300 px-4 py-2 font-bold">Total Price</td>
+        <td colspan="3" class="border border-gray-300 px-4 py-2">{{ totalPrice$ | async | currency }}</td>
+      </tr>
+    </tfoot>
+
+  </table>
+
+</div>
